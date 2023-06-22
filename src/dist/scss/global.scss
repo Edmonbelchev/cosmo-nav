@@ -1,0 +1,19 @@
+.container{
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    img{
+        max-width: 900px;
+    }
+}
+
+.error{
+    background: #f71919;
+    color: $light;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.datepicker-container{
+    width: fit-content;
+}

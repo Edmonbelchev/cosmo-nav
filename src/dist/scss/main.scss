@@ -1,0 +1,8 @@
+@import 'fonts';
+@import 'variables';
+@import 'global';
+
+/* SET $main-font AS DEFAULT FONT */
+*{
+    font-family: $main-font;
+}
