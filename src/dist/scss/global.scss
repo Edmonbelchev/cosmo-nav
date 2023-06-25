@@ -1,9 +1,9 @@
 .container{
-    padding: 80px 40px;
+    padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    img{
-        max-width: 900px;
+    @media(min-width: 768px){
+        padding: 80px 40px;
     }
 }
 
@@ -16,4 +16,83 @@
 
 .datepicker-container{
     width: fit-content;
+    margin-bottom: 20px;
+    .dp__main.dp__theme_light{
+        position: relative;
+        &:before{
+            content: "\e904";
+            font-family: $icons;
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            z-index: 1;
+            color: #000;
+            font-size: 18px;
+        }
+        input{
+            padding: 10px 10px 10px 40px;
+        }
+    }
+}
+
+.input-wrapper{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    input{
+        padding: 10px 10px 10px 40px;
+        border-radius: 5px;
+        border: none;
+        background: none;
+        font-size: 15px;
+        color: $light;
+        border: 2px solid #7f7f7f;
+        transition: border .3s;
+        &:focus{
+            outline: none;
+            border: 2px solid $light;
+        }
+    }
+    i{
+        position: absolute;
+        top: 0;
+        left: 15px;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        font-size: 18px;    
+    }
+}
+
+.heading{
+    margin-bottom: 40px;
+    h1{
+        font-size: 42px;
+        color: $light;
+        font-weight: 800;   
+        @media (max-width: 480px){
+            font-size: 28px;
+        }
+    }
+    .sub-title{
+        @media (max-width: 480px){
+            font-size: 16px;
+        }
+        font-size: 20px;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
 }

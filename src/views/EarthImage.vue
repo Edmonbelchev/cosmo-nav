@@ -1,5 +1,12 @@
 <template>
     <div class="container">
+        <div class="heading">
+            <h1>Most recent Earth image.</h1>
+            <span class="sub-title">
+                Be amazed by the breathtaking snapshot of our planet captured in the latest image.
+            </span>
+        </div>
+
         <div class="datepicker-container">
             <label for="datepicker">Select Date:</label>
             <VueDatePicker :format="formatDate" v-model="selectedDate" :max-date="new Date()">
@@ -57,7 +64,7 @@
     import '@vuepic/vue-datepicker/dist/main.css'
     import { formatDate } from '../utils';
 
-    const response = ref({ images: [] })
+    const response: any = ref({ images: [] })
     const thumbsSwiper = ref(null)
     const selectedDate = ref(null)
 
@@ -72,41 +79,47 @@
         return `${year}/${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`
     }
 
+    interface Item {
+        date: Date;
+        image: string;
+    }
+
     const fetchData = async (getDate: Date = new Date()) => {
         try{
             response.value.images = []
 
             const result = await axios.get(`https://api.nasa.gov/EPIC/api/enhanced/date/${getDate}?api_key=${window.nasa_api_key}`)
 
-            result.data.forEach((item) => {
-                const date = format(item.date)
+            result.data.forEach((item: Item) => {
+                const date: string = format(item.date)
+
                 response.value.images.push(`https://epic.gsfc.nasa.gov/archive/enhanced/${date}/jpg/${item.image}.jpg`)
             })
             
-        } catch(error){
+        } catch(error: any){
             console.log(error)
         }
     }
 
     /* SETUP THUMBNAIL FOR SLIDER */
-    const setThumbsSwiper = (swiper) => {
+    const setThumbsSwiper = (swiper: any) => {
         thumbsSwiper.value = swiper
     }
 
     /* SETUP SLIDER */
-    const onSwiper = (swiper) => {
+    const onSwiper = (swiper: any) => {
         console.log(swiper)
     }
 
     onMounted(() => {
         /* GET TODAY -2 DAYS ON VIEW MOUNTING */
-        const formattedDate = formatDate(new Date(), 2)
+        const formattedDate: any = formatDate(new Date(), 2)
         selectedDate.value = formattedDate
     })
 
     /* WATCH FOR DATE CHANGES AND RUN fetchDATA */
-    watch(selectedDate, (newDate) => {
-        const formattedDate = formatDate(newDate)
+    watch(selectedDate, (newDate: any) => {
+        const formattedDate: any = formatDate(newDate)
         selectedDate.value = formattedDate
 
         fetchData(formattedDate)
@@ -114,6 +127,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .heading{
+        margin-bottom: 20px;
+    }
     .swiper-wrapper{
         img{
             width: 100%;

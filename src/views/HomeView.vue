@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="about-us">
+    <div class="container">
       <h1>Welcome to CosmoNav!</h1>
       <p>
         At CosmoNav, we're passionate about astronomy and helping you explore the wonders of the universe. Our website combines the fascinating world of astronomy with cutting-edge technology to provide a unique and immersive experience.
@@ -27,10 +27,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .about-us{
-    padding: 80px 40px;
-    h1{
-      margin-bottom: 20px;
-    }
+  h1{
+    margin-bottom: 20px;
   }
 </style>
