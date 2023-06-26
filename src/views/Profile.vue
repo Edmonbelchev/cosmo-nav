@@ -39,6 +39,8 @@ import { onMounted, ref } from 'vue'
 import { db } from '@/firebase'
 import { collection, query, where, setDoc, doc, getDocs } from "firebase/firestore"
 import { useStore } from 'vuex'
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-default.css'
 
 /* RETRIEVE STORE */
 const store = useStore()
@@ -48,6 +50,11 @@ const update_form = ref({
     age: '',
     address: ''
 })
+
+/* DEFINE TOAST POPUP */
+const $toast = useToast()
+/* GET DOCUMENT'S BODY */
+const body : HTMLElement | any = document.querySelector("body")
 
 const retrieveUser = async () => {
     /* QUERY USERS COLLECTION */
@@ -72,6 +79,9 @@ const retrieveUser = async () => {
 }
 
 const update = async () => {
+    /* ADD LOADER */
+    body.classList.add("loading")
+
     const userRef = doc(db, "usersCollection", store.state.user.uid)
 
     const data = {
@@ -82,11 +92,21 @@ const update = async () => {
 
     setDoc(userRef, data, { merge: true })
     .then(() => {
-        console.log('User updated successfully')
+        console.log('Profile updated successfully')
+
+        $toast.success('Profile updated successfully', {
+            position: 'bottom-right'
+        })
     })
     .catch((error: any) => {
-        console.error('Error updating user:', error);
+        console.error('Error updating profile:', error);
+
+        $toast.error('Error updating profile: ' + error, {
+            position: 'bottom-right'
+        })
     });
+
+    body.classList.remove("loading")
 }
 
 onMounted(() => {
