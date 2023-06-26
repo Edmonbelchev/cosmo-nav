@@ -48,7 +48,8 @@ import { formatDate } from '../utils';
 import { db } from '@/firebase'
 import { collection, addDoc, query, where, limit, getDocs, deleteDoc, serverTimestamp } from "firebase/firestore"
 import { useStore } from 'vuex'
-
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-default.css'
 
 /* DEFINE A VARIABLE TO STORE RESPONSE DATA FROM API CALL */
 const response: any = ref(null);
@@ -103,6 +104,9 @@ const addToFavorite = async (imageUrl:string, userUid: string) => {
                 )
 
     const getFavImage = await getDocs(q)
+
+    /* DEFINE TOAST POPUP */
+    const $toast = useToast()
     
     /* CHECK IF RECORD EXISTS */
     if (getFavImage.empty) {
@@ -117,8 +121,16 @@ const addToFavorite = async (imageUrl:string, userUid: string) => {
             /* ADD IMAGE TO FAVORITES */
             await addDoc(favImages, dataObj);
             liked.value = true
+
+            $toast.success("Imaged successfully added to collection!", {
+                position: 'bottom-right'
+            })
         } catch (error) {
             console.error("Error adding favorite image:", error);
+
+            $toast.error("Error adding favorite image: " + error, {
+                position: 'bottom-right'
+            })
         }
     } else {
         /* IF RECORD EXISTS RETURN A MESSAGE */
@@ -126,9 +138,17 @@ const addToFavorite = async (imageUrl:string, userUid: string) => {
         .then(() => {
             console.log("Document successfully deleted!");
             liked.value = false
+            
+            $toast.success("Image successfully removed from collection!", {
+                position: 'bottom-right'
+            })
         })
         .catch((error: any) => {
             console.error("Error deleting document:", error);
+
+            $toast.error("Error deleting document: " + error, {
+                position: 'bottom-right'
+            })
         });
     }
 }

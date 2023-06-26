@@ -17,6 +17,7 @@
     "vue": "^3.3.4",
     "vue-easy-lightbox": "^1.16.0",
     "vue-router": "^4.2.2",
+    "vue-toast-notification": "3.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

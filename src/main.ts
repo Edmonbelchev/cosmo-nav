@@ -22,5 +22,8 @@ auth.onAuthStateChanged(() => {
         app.use(store)
         app.use(router)
         app.mount('#app')
+
+        /* REMOVE LOADER WHEN APP IS LOADED */
+        document.querySelector("body.loading")?.classList.remove("loading")
     }
 });

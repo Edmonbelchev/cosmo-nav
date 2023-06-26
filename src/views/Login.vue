@@ -50,7 +50,6 @@
 <script setup langs="ts">
 import { ref } from "vue";
 import { useStore } from 'vuex'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 const login_form = ref({
   email: '',
@@ -64,18 +63,7 @@ const login = async () => {
 }
 
 const loginWithGoogle = async () => {
-  const auth = getAuth();
-
-  try {
-    const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-    
-    // Dispatch the login action with the user information
-    store.dispatch('login', user);
-  } catch (error) {
-    console.error('Error signing in with Google:', error);
-  }
+  store.dispatch('loginWithGoogle')
 };
 
 </script>

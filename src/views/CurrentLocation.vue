@@ -168,80 +168,80 @@ const imageStyle = reactive({
     transform: 'scale(1) translate(0, 0)',
 });
 
-    let isPanning = false
-    let startPanX = 0
-    let startPanY = 0
-    let translateX = 0
-    let translateY = 0
-    let scale = 1
+let isPanning = false
+let startPanX = 0
+let startPanY = 0
+let translateX = 0
+let translateY = 0
+let scale = 1
 
-    const getEventX = (event: MouseEvent | TouchEvent) => {
-    if (event instanceof MouseEvent) {
-        return event.clientX;
-    } else if (event.touches.length > 0) {
-        return event.touches[0].clientX;
+const getEventX = (event: MouseEvent | TouchEvent) => {
+if (event instanceof MouseEvent) {
+    return event.clientX;
+} else if (event.touches.length > 0) {
+    return event.touches[0].clientX;
+}
+    return 0;
+}
+
+const getEventY = (event: MouseEvent | TouchEvent) => {
+if (event instanceof MouseEvent) {
+    return event.clientY;
+} else if (event.touches.length > 0) {
+    return event.touches[0].clientY;
+}
+    return 0;
+}
+
+const startPan = (event: MouseEvent | TouchEvent) => {
+    isPanning = true
+    startPanX = getEventX(event)
+    startPanY = getEventY(event)
+}
+
+const handlePan = (event: MouseEvent | TouchEvent) => {
+    if (isPanning) {
+    const offsetX = getEventX(event) - startPanX
+    const offsetY = getEventY(event) - startPanY
+    translateX += offsetX
+    translateY += offsetY
+    startPanX = getEventX(event)
+    startPanY = getEventY(event)
+    updateImageTransform()
     }
-        return 0;
+}
+
+const endPan = () => {
+    isPanning = false
+}
+
+/* HANDLE ZOOM IN AND ZOOM OUT */
+const handleZoom = (event: MouseEvent, zoomIn: boolean = true) => {
+    const zoomDelta = event.shiftKey ? -0.1 : 0.1 // ZOOM SPEED
+    const newScale = zoomIn ? scale + zoomDelta : scale - zoomDelta
+
+    if (newScale >= 0.5 && newScale <= 2) { // MINIMUM AND MAXIMUM ZOOM LEVEL
+        const containerRect = imageContainer.value.getBoundingClientRect();
+        const containerCenterX = containerRect.width / 2;
+        const containerCenterY = containerRect.height / 2;
+        const mouseX = event.clientX - containerRect.left;
+        const mouseY = event.clientY - containerRect.top;
+
+        const scaleRatio = newScale / scale;
+        const translateXDelta = (1 - scaleRatio) * (mouseX - containerCenterX);
+        const translateYDelta = (1 - scaleRatio) * (mouseY - containerCenterY);
+
+        translateX += translateXDelta;
+        translateY += translateYDelta;
+        scale = newScale;
+
+        imageStyle.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`
     }
+}
 
-    const getEventY = (event: MouseEvent | TouchEvent) => {
-    if (event instanceof MouseEvent) {
-        return event.clientY;
-    } else if (event.touches.length > 0) {
-        return event.touches[0].clientY;
-    }
-        return 0;
-    }
-
-    const startPan = (event: MouseEvent | TouchEvent) => {
-      isPanning = true
-      startPanX = getEventX(event)
-      startPanY = getEventY(event)
-    }
-
-    const handlePan = (event: MouseEvent | TouchEvent) => {
-      if (isPanning) {
-        const offsetX = getEventX(event) - startPanX
-        const offsetY = getEventY(event) - startPanY
-        translateX += offsetX
-        translateY += offsetY
-        startPanX = getEventX(event)
-        startPanY = getEventY(event)
-        updateImageTransform()
-      }
-    }
-
-    const endPan = () => {
-      isPanning = false
-    }
-
-    /* HANDLE ZOOM IN AND ZOOM OUT */
-    const handleZoom = (event: MouseEvent, zoomIn: boolean = true) => {
-        const zoomDelta = event.shiftKey ? -0.1 : 0.1 // ZOOM SPEED
-        const newScale = zoomIn ? scale + zoomDelta : scale - zoomDelta
-
-        if (newScale >= 0.5 && newScale <= 2) { // MINIMUM AND MAXIMUM ZOOM LEVEL
-            const containerRect = imageContainer.value.getBoundingClientRect();
-            const containerCenterX = containerRect.width / 2;
-            const containerCenterY = containerRect.height / 2;
-            const mouseX = event.clientX - containerRect.left;
-            const mouseY = event.clientY - containerRect.top;
-
-            const scaleRatio = newScale / scale;
-            const translateXDelta = (1 - scaleRatio) * (mouseX - containerCenterX);
-            const translateYDelta = (1 - scaleRatio) * (mouseY - containerCenterY);
-
-            translateX += translateXDelta;
-            translateY += translateYDelta;
-            scale = newScale;
-
-            imageStyle.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`
-        }
-    }
-
-    const updateImageTransform = () => {
-      imageStyle.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`
-    };
+const updateImageTransform = () => {
+    imageStyle.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`
+};
 
 watch(selectedDate, (newDate: any) => {
     const formattedDate = formatDate(newDate);
@@ -263,7 +263,7 @@ onMounted(() => {
     margin-bottom: 20px;
 }
 .table-wrapper{
-    border-radius: 8px;
+    border-radius: 3px;
     overflow: hidden;
     margin-bottom: 20px;
     overflow: scroll;

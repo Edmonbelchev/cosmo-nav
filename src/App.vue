@@ -13,7 +13,6 @@ const store = useStore()
 onBeforeMount(() => {
   store.dispatch('fetchUser')
 })
-
 </script>
   
 <style scoped></style>

@@ -44,6 +44,8 @@ import { db } from '@/firebase'
 import { collection, query, where, getDocs, deleteDoc, limit, doc } from "firebase/firestore"
 import { useStore } from 'vuex'
 import VueEasyLightbox from 'vue-easy-lightbox'
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-default.css'
 
 interface Image {
     id: number;
@@ -89,6 +91,13 @@ const deleteCollection = async (id: string) => {
                 const element: HTMLElement | any = document.querySelector(`.image-wrapper[data-id="${id}"]`)
                 element.remove()
             }, 300)
+
+            /* DEFINE TOAST POPUP */
+            const $toast = useToast()
+
+            $toast.success("Imaged successfully removed from collection!", {
+                position: 'bottom-right'
+            })
         })
         .catch((error: any) => {
             console.error("Error deleting document:", error);

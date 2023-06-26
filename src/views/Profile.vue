@@ -52,6 +52,8 @@ const update_form = ref({
 const retrieveUser = async () => {
     /* QUERY USERS COLLECTION */
     try {
+        update_form.value.email = store.state.user.email
+        
         const q = query(
           collection(db, 'usersCollection'),
           where('uid', '==', store.state.user.uid)
@@ -60,7 +62,6 @@ const retrieveUser = async () => {
         const querySnapshot = await getDocs(q)
 
         querySnapshot.forEach((doc: any) => {
-            update_form.value.email = store.state.user.email,
             update_form.value.address = doc.data().address,
             update_form.value.age = doc.data().age
         })

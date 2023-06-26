@@ -151,6 +151,7 @@ header {
                 flex-direction: column;
                 padding: 20px 0;
                 border-top: 1px solid #4a4a4a;
+                color: $light;
                 .label{
                     font-size: 20px;
                     margin-bottom: 20px;
