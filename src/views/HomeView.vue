@@ -21,7 +21,7 @@
 
       <div class="elements-wrapper">
         <RouterLink :to="{ name: 'dailyPic' }" class="item-wrapper">
-            <h2>Check your current location</h2>
+            <h2>Check Your Current Location</h2>
             <figure>
               <img src="/assets/images/current-location.webp?ver=1" alt="">
             </figure>
