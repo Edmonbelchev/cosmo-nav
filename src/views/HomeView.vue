@@ -20,14 +20,14 @@
       </p>
 
       <div class="elements-wrapper">
-        <RouterLink :to="{ name: 'dailyPic' }" class="item-wrapper">
+        <RouterLink  :to="{ name: 'currentLocation' }" class="item-wrapper">
             <h2>Check Your Current Location</h2>
             <figure>
               <img src="/assets/images/current-location.webp?ver=1" alt="">
             </figure>
         </RouterLink>
 
-        <RouterLink :to="{ name: 'currentLocation' }" class="item-wrapper">
+        <RouterLink :to="{ name: 'dailyPic' }" class="item-wrapper">
               <h2> Astronomy Picture of the Day </h2>
               <figure>
                 <img src="/assets/images/picture-of-the-day.webp" alt="">
