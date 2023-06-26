@@ -13,9 +13,6 @@
         But that's not all. CosmoNav goes beyond just presenting stunning images. We leverage the power of geolocation technology to determine your current location on Earth. By pinpointing your coordinates, we provide a personalized experience, tailoring the content to showcase the specific features and phenomena that are occurring in your area. You'll gain a deeper appreciation for the Earth's diverse regions and the dynamic nature of our planet.
         <br>
         <br>
-        Whether you're a seasoned astronomer or simply curious about the vastness of space, CosmoNav is here to spark your sense of wonder and expand your knowledge. Join us on this cosmic journey as we explore the Earth's beauty and unravel the mysteries of the universe.
-        <br>
-        <br>
         Start your astronomical adventure with CosmoNav today and embark on a thrilling voyage through the cosmos, right from the comfort of your own home.
       </p>
 
@@ -60,7 +57,7 @@
     display: flex;
     flex-wrap: wrap;
     @media (max-width: 480px){
-      padding-top: 20px;
+      padding-top: 30px;
     }
     .item-wrapper{
       display: flex;
