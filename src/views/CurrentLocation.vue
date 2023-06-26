@@ -217,7 +217,7 @@ const endPan = () => {
 
 /* HANDLE ZOOM IN AND ZOOM OUT */
 const handleZoom = (event: MouseEvent, zoomIn: boolean = true) => {
-    const zoomDelta = event.shiftKey ? -0.1 : 0.1 // ZOOM SPEED
+    const zoomDelta = event.shiftKey ? -0.3 : 0.3 // ZOOM SPEED
     const newScale = zoomIn ? scale + zoomDelta : scale - zoomDelta
 
     if (newScale >= 0.5 && newScale <= 2) { // MINIMUM AND MAXIMUM ZOOM LEVEL
